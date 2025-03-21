@@ -1,0 +1,151 @@
+CODE
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Nature Image Slider</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #bcefee, #99b9b4);
+        }
+
+        .slider-container {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider {
+            display: flex;
+            width: 100%;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slide {
+            width: 100%;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            display: block;
+        }
+
+        .slide-title {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6); /* Consistent semi-transparent background */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0; /* Hidden initially */
+            transition: opacity 0.5s ease; /* Smooth fade-in effect */
+        }
+
+        .slide:hover .slide-title {
+            opacity: 1; /* Title appears on hover */
+        }
+
+        .navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .navigation button {
+            background-color: rgba(255, 255, 255, 0.6);
+            color: #333;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 50px;
+            font-size: 18px;
+            pointer-events: all;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .navigation button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 600px) {
+            .navigation button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide">
+                <img src="image1.jpg" alt="Mountain View">
+                <div class="slide-title">Breathtaking Mountain View</div>
+            </div>
+            <div class="slide">
+                <img src="image2.jpg" alt="Forest Path">
+                <div class="slide-title">Serene Forest Path</div>
+            </div>
+            <div class="slide">
+                <img src="image3.jpg" alt="Sunny Beach">
+                <div class="slide-title">Golden Sunny Beach</div>
+            </div>
+        </div>
+        <div class="navigation">
+            <button id="prev">&#10094; Prev</button>
+            <button id="next">Next &#10095;</button>
+        </div>
+    </div>
+
+    <script>
+        const slider = document.querySelector('.slider');
+        const slides = document.querySelectorAll('.slide');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+
+        let currentIndex = 0;
+
+        function updateSlider() {
+            const offset = -currentIndex * 100;
+            slider.style.transform = `translateX(${offset}%)`;
+        }
+
+        function showNextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateSlider();
+        }
+
+        function showPrevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateSlider();
+        }
+
+        nextButton.addEventListener('click', showNextSlide);
+        prevButton.addEventListener('click', showPrevSlide);
+
+    </script>
+</body>
+</html>
